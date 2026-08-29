@@ -214,10 +214,25 @@
 
         <!-- ВИДЕО -->
         <div class="video-box">
-            <video controls playsinline poster="">
+            <video id="mainVideo" autoplay muted playsinline loop>
                 <source src="https://unlimbot.hb.ru-msk.vkcloud-storage.ru/uploads/5251c09aff9c42639d8183980e02abeb06cd57dc2ff56747.MP4" type="video/mp4">
             </video>
         </div>
+
+        <script>
+            // Автозапуск видео без звука
+            document.addEventListener('DOMContentLoaded', () => {
+                const video = document.getElementById('mainVideo');
+                if (video) {
+                    video.muted = true;
+                    video.play().catch(e => console.log("Autoplay video deferred:", e));
+                }
+            });
+        </script>
+
+        <div class="section-title">✨ Персональные поздравления ✨</div>
+        
+        <div class="vip-group">
 
         <div class="section-title">✨ Персональные поздравления ✨</div>
         

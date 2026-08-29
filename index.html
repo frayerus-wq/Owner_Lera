@@ -1,1 +1,330 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>С Днём Рождения, Мамуля! 🥂✨</title>
+    <style>
+        :root {
+            --champagne-gold: linear-gradient(135deg, #e5c158 0%, #fff4b0 50%, #c49a37 100%);
+            --dark-glass: rgba(18, 12, 6, 0.75);
+            --card-glass: rgba(255, 252, 245, 0.92);
+        }
 
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif; -webkit-tap-highlight-color: transparent; }
+        
+        body {
+            background: #110c06;
+            min-height: 100vh;
+            color: #fff;
+            overflow-x: hidden;
+            padding-bottom: 70px;
+        }
+
+        .hidden-trigger { position: absolute; opacity: 0; pointer-events: none; }
+
+        /* 📸 ЖИВЫЕ ФОТО-ОБОИ НА ВСЕМ ФОНЕ */
+        .wallpaper-container {
+            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: 0;
+            background-image: url('https://unlimbot.hb.ru-msk.vkcloud-storage.ru/uploads/6acfa836507e40a59cd28fd150b67634756868c3310cf1f4.jpg');
+            background-size: cover; background-position: center;
+            filter: blur(14px) brightness(0.65); transform: scale(1.1);
+        }
+
+        .vignette {
+            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+            background: radial-gradient(circle at 50% 35%, rgba(247, 239, 230, 0.15) 0%, rgba(18, 12, 6, 0.7) 100%);
+            z-index: 1; pointer-events: none;
+        }
+
+        /* 🎵 МУЗЫКАЛЬНЫЙ ВИДЖЕТ (ПРЕМИУМ КНОПКА) */
+        .music-widget {
+            position: fixed;
+            top: 15px; right: 15px;
+            z-index: 999;
+            background: rgba(255, 252, 245, 0.85);
+            backdrop-filter: blur(10px);
+            border: 1.5px solid #d4af37;
+            padding: 8px 14px;
+            border-radius: 30px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+            transition: 0.3s;
+        }
+        .music-widget:active { transform: scale(0.95); }
+        .music-icon { font-size: 16px; animation: pulseIcon 1.5s infinite ease-in-out; }
+        .music-text { font-size: 12px; font-weight: 800; color: #3b270c; text-transform: uppercase; letter-spacing: 0.5px; }
+
+        @keyframes pulseIcon {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+        }
+
+        /* КОНТЕНТ */
+        .wrapper { position: relative; z-index: 10; max-width: 480px; margin: 0 auto; padding: 30px 16px; text-align: center; }
+
+        .header-badge {
+            display: inline-block; background: var(--champagne-gold); color: #3b270c;
+            padding: 8px 24px; border-radius: 40px; font-weight: 900; font-size: 11px;
+            text-transform: uppercase; letter-spacing: 2px; margin-bottom: 18px;
+            box-shadow: 0 10px 30px rgba(196, 154, 55, 0.4); border: 1px solid rgba(255,255,255,0.9);
+        }
+
+        h1 { font-size: 32px; font-weight: 900; margin-bottom: 10px; letter-spacing: -0.5px; text-shadow: 0 4px 20px rgba(0,0,0,0.8); }
+        .sub-text { font-size: 15px; color: #ffeaaf; margin-bottom: 30px; font-weight: 600; text-shadow: 0 2px 8px rgba(0,0,0,0.8); }
+
+        /* ВИДЕО БЛОК */
+        .video-box {
+            width: 100%; border-radius: 26px; overflow: hidden;
+            border: 3px solid rgba(212, 175, 55, 0.8);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.6); margin-bottom: 45px;
+            background: #000;
+        }
+        video { width: 100%; display: block; }
+
+        /* 👑 VIP РАМКИ */
+        .section-title { font-size: 17px; font-weight: 900; color: #ffeaaf; text-transform: uppercase; letter-spacing: 2.5px; margin-bottom: 22px; text-shadow: 0 2px 10px rgba(0,0,0,0.9); }
+        .vip-group { display: flex; flex-direction: column; gap: 24px; margin-bottom: 50px; }
+
+        .vip-card {
+            background: var(--card-glass); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+            border-radius: 28px; padding: 16px; border: 2px solid rgba(212, 175, 55, 0.7);
+            box-shadow: 0 25px 50px rgba(0,0,0,0.45); cursor: pointer; transition: 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        .vip-card:active { transform: scale(0.97); }
+
+        .vip-img { width: 100%; height: 310px; border-radius: 20px; overflow: hidden; margin-bottom: 14px; border: 1px solid rgba(212, 175, 55, 0.4); }
+        .vip-img img { width: 100%; height: 100%; object-fit: cover; object-position: top; }
+
+        .vip-footer { display: flex; justify-content: space-between; align-items: center; padding: 0 6px; }
+        .vip-name { font-size: 23px; font-weight: 900; color: #3d2a14; }
+        .vip-btn { background: var(--champagne-gold); color: #3b270c; font-weight: 900; font-size: 12px; padding: 8px 18px; border-radius: 14px; box-shadow: 0 4px 15px rgba(196, 154, 55, 0.3); }
+
+        /* 📸 СЕТКА АЛЬБОМА */
+        .album-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; margin-bottom: 50px; }
+        .album-item { 
+            background: var(--card-glass); border-radius: 22px; padding: 10px; border: 1.8px solid rgba(212, 175, 55, 0.6);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.35); cursor: pointer; transition: 0.3s;
+        }
+        .album-item:active { transform: scale(0.95); }
+        .album-img { width: 100%; height: 150px; border-radius: 15px; overflow: hidden; }
+        .album-img img { width: 100%; height: 100%; object-fit: cover; }
+        .album-title { font-size: 11px; font-weight: 800; color: #614619; text-transform: uppercase; letter-spacing: 1px; margin-top: 8px; text-align: center; }
+
+        /* 🏎️ ПРЕМИУМ ФУТЕР */
+        .premium-footer {
+            margin-top: 40px; padding: 30px 20px;
+            background: rgba(255, 252, 245, 0.1);
+            backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+            border-radius: 26px; border: 1.5px solid rgba(212, 175, 55, 0.4);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.5); text-align: center;
+        }
+        .footer-line-1 { font-size: 15px; font-weight: 800; color: #ffffff; margin-bottom: 6px; text-shadow: 0 2px 8px rgba(0,0,0,0.8); }
+        .footer-line-2 { 
+            font-size: 18px; font-weight: 900; 
+            background: var(--champagne-gold); -webkit-background-clip: text; -webkit-text-fill-color: transparent; 
+            letter-spacing: 0.5px; filter: drop-shadow(0 2px 10px rgba(196,154,55,0.4));
+        }
+
+        /* 3D ПОЗДРАВЛЕНИЯ (МОДАЛКИ) */
+        .modal-overlay { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(15, 10, 4, 0.85); backdrop-filter: blur(15px); z-index: 100; opacity: 0; pointer-events: none; transition: 0.4s; }
+        .modal {
+            position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%) scale(0.85);
+            width: 92%; max-width: 400px; background: #fffdf9; border-radius: 32px; padding: 28px 24px;
+            box-shadow: 0 40px 100px rgba(0,0,0,0.8); border: 2.5px solid #d4af37; z-index: 101;
+            opacity: 0; pointer-events: none; transition: 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            color: #2a1f14; text-align: left; max-height: 88vh; overflow-y: auto;
+        }
+        .modal img { width: 100%; max-height: 250px; object-fit: cover; border-radius: 18px; margin-bottom: 16px; display: block; }
+        .modal h2 { font-size: 25px; font-weight: 900; margin-bottom: 12px; color: #3d2a14; text-align: center; }
+        .modal p { font-size: 16px; line-height: 1.75; margin-bottom: 24px; font-weight: 500; }
+        .close-btn { display: block; width: 100%; background: var(--champagne-gold); color: #3b270c; padding: 15px; border-radius: 16px; font-weight: 900; text-align: center; text-transform: uppercase; letter-spacing: 1px; box-shadow: 0 6px 20px rgba(196,154,55,0.4); }
+
+        #m1:checked ~ .modal-overlay, #m2:checked ~ .modal-overlay, #m3:checked ~ .modal-overlay, #m4:checked ~ .modal-overlay, #m5:checked ~ .modal-overlay, #m6:checked ~ .modal-overlay, #m7:checked ~ .modal-overlay { opacity: 1; pointer-events: auto; }
+        #m1:checked ~ #box1, #m2:checked ~ #box2, #m3:checked ~ #box3, #m4:checked ~ #box4, #m5:checked ~ #box5, #m6:checked ~ #box6, #m7:checked ~ #box7 { opacity: 1; pointer-events: auto; transform: translate(-50%, -50%) scale(1); }
+    </style>
+</head>
+<body>
+
+    <!-- ФОНОВАЯ МУЗЫКА (РАБОЧИЕ ССЫЛКИ С АВТОПОВТОРОМ И ПОДДЕРЖКОЙ ВСЕХ УСТРОЙСТВ) -->
+    <audio id="bgMusic" loop preload="auto">
+        <source src="https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3" type="audio/mpeg">
+        <source src="https://upload.wikimedia.org/wikipedia/commons/transcoded/c/c8/Ludwig_van_Beethoven_-_Fur_Elise.ogg/Ludwig_van_Beethoven_-_Fur_Elise.ogg.mp3" type="audio/mpeg">
+    </audio>
+
+    <div class="music-widget" onclick="toggleMusic()">
+        <div class="music-icon" id="musicIcon">🎵</div>
+        <div class="music-text" id="musicText">Музыка</div>
+    </div>
+
+    <script>
+        const music = document.getElementById('bgMusic');
+        const musicIcon = document.getElementById('musicIcon');
+        const musicText = document.getElementById('musicText');
+        let isPlaying = false;
+
+        function startAudio() {
+            if (isPlaying) return;
+            music.play().then(() => {
+                musicIcon.textContent = '🎶';
+                musicText.textContent = 'Играет';
+                isPlaying = true;
+            }).catch(e => {
+                console.log("Audio play deferred or blocked:", e);
+            });
+        }
+
+        function toggleMusic() {
+            if (isPlaying) {
+                music.pause();
+                musicIcon.textContent = '🎵';
+                musicText.textContent = 'Музыка';
+                isPlaying = false;
+            } else {
+                startAudio();
+            }
+        }
+
+        // Автозапуск музыки при первом клике/касании в любом месте экрана (для обхода автоплей-защиты iOS/Android)
+        ['click', 'touchstart', 'keydown'].forEach(evt => {
+            document.addEventListener(evt, function initAudio() {
+                if (!isPlaying) {
+                    startAudio();
+                }
+            }, { once: true });
+        });
+    </script>
+
+    <input type="radio" name="m" id="res" class="hidden-trigger" checked>
+    <input type="radio" name="m" id="m1" class="hidden-trigger"><input type="radio" name="m" id="m2" class="hidden-trigger"><input type="radio" name="m" id="m3" class="hidden-trigger">
+    <input type="radio" name="m" id="m4" class="hidden-trigger"><input type="radio" name="m" id="m5" class="hidden-trigger"><input type="radio" name="m" id="m6" class="hidden-trigger"><input type="radio" name="m" id="m7" class="hidden-trigger">
+
+    <div class="wallpaper-container"></div>
+    <div class="vignette"></div>
+
+    <label for="res" class="modal-overlay"></label>
+
+    <div class="wrapper">
+        <div class="header-badge">С Днём Рождения ✨</div>
+        <h1>Мамочка, с праздником! ❤️</h1>
+        <div class="sub-text">Твой персональный семейный альбом</div>
+
+        <!-- ВИДЕО -->
+        <div class="video-box">
+            <video controls playsinline poster="https://unlimbot.hb.ru-msk.vkcloud-storage.ru/uploads/866dd520e26b454fa5f9d1cdedf4864f8195f335e201c608.jpg">
+                <source src="https://unlimbot.hb.ru-msk.vkcloud-storage.ru/uploads/5251c09aff9c42639d8183980e02abeb06cd57dc2ff56747.MP4" type="video/mp4">
+            </video>
+        </div>
+
+        <div class="section-title">✨ Персональные поздравления ✨</div>
+        
+        <div class="vip-group">
+            <!-- ЛЕРА -->
+            <label for="m1" class="vip-card">
+                <div class="vip-img"><img src="https://unlimbot.hb.ru-msk.vkcloud-storage.ru/uploads/13a41d32589c4f03861aa11f7c632be9f2d971c81824f781.jpg"></div>
+                <div class="vip-footer">
+                    <div class="vip-name">Лера 💕</div>
+                    <div class="vip-btn">Открыть 💌</div>
+                </div>
+            </label>
+
+            <!-- ЛИЛЯ -->
+            <label for="m2" class="vip-card">
+                <div class="vip-img"><img src="https://unlimbot.hb.ru-msk.vkcloud-storage.ru/uploads/4eb58fdeec6d4c66a16df6639c3ff06f9a3cb5bfc369ba91.jpg"></div>
+                <div class="vip-footer">
+                    <div class="vip-name">Лиля 💖</div>
+                    <div class="vip-btn">Открыть 💌</div>
+                </div>
+            </label>
+
+            <!-- ВИКТОР -->
+            <label for="m3" class="vip-card">
+                <div class="vip-img"><img src="https://unlimbot.hb.ru-msk.vkcloud-storage.ru/uploads/4ace13e172bb4a1b96213f4612324dcd7fd99a43da3ad2ba.jpg"></div>
+                <div class="vip-footer">
+                    <div class="vip-name">Виктор 👑</div>
+                    <div class="vip-btn">Открыть 💌</div>
+                </div>
+            </label>
+        </div>
+
+        <div class="section-title">📸 Семейный альбом 📸</div>
+        <div class="album-grid">
+            <label for="m4" class="album-item">
+                <div class="album-img"><img src="https://unlimbot.hb.ru-msk.vkcloud-storage.ru/uploads/f6f4fe6e7f5c4977a845633243cc9e744c5940655fc5ec51.jpg"></div>
+                <div class="album-title">Виды ✨</div>
+            </label>
+            <label for="m5" class="album-item">
+                <div class="album-img"><img src="https://unlimbot.hb.ru-msk.vkcloud-storage.ru/uploads/85d814f7dc864590b08f22d1ed7861eb2120d92e311318da.jpg"></div>
+                <div class="album-title">Вера ❤️</div>
+            </label>
+            <label for="m6" class="album-item">
+                <div class="album-img"><img src="https://unlimbot.hb.ru-msk.vkcloud-storage.ru/uploads/866dd520e26b454fa5f9d1cdedf4864f8195f335e201c608.jpg"></div>
+                <div class="album-title">Красота 👑</div>
+            </label>
+            <label for="m7" class="album-item">
+                <div class="album-img"><img src="https://unlimbot.hb.ru-msk.vkcloud-storage.ru/uploads/66649ed3c6324d30b9e60bb3e21b35be7694e6363ad78b56.jpg"></div>
+                <div class="album-title">Отдых 🌊</div>
+            </label>
+        </div>
+
+        <div class="premium-footer">
+            <div class="footer-line-1">С любовью и уважением к мамочке! ❤️</div>
+            <div class="footer-line-2">Сделал Кирилл 🚀</div>
+        </div>
+    </div>
+
+    <!-- МОДАЛКИ -->
+    <div class="modal" id="box1">
+        <img src="https://unlimbot.hb.ru-msk.vkcloud-storage.ru/uploads/13a41d32589c4f03861aa11f7c632be9f2d971c81824f781.jpg">
+        <h2>Мамуля, от Леры 💕</h2>
+        <p>Моя дорогая Маришка, прекрасная и самая лучшая жена и мама!<br><br>Ты наполняешь мою жизнь ярким светом, и каждый миг с тобой неповторим. Я сделаю всё, чтобы ты улыбалась. Ты героиня моего романа! И отдельное спасибо за твои легендарные "подножки" — с тобой каждый день ярче и веселее!<br><br>С днем рождения, я люблю тебя, родная! ❤️</p>
+        <label for="res" class="close-btn">Закрыть ✨</label>
+    </div>
+
+    <div class="modal" id="box2">
+        <img src="https://unlimbot.hb.ru-msk.vkcloud-storage.ru/uploads/4eb58fdeec6d4c66a16df6639c3ff06f9a3cb5bfc369ba91.jpg">
+        <h2>От Лили 💖</h2>
+        <p>Дорогая мамочка! Желаю тебе сиять ярче солнца, никогда не грустить и чувствовать нашу любовь каждую секунду.<br><br>Ты — ангел-хранитель нашей семьи, наш пример достойный! Пусть все твои мечты осуществятся, а мы всегда будем рядом. Будь счастлива! 🥂💐</p>
+        <label for="res" class="close-btn">Закрыть ✨</label>
+    </div>
+
+    <div class="modal" id="box3">
+        <img src="https://unlimbot.hb.ru-msk.vkcloud-storage.ru/uploads/4ace13e172bb4a1b96213f4612324dcd7fd99a43da3ad2ba.jpg">
+        <h2>От Виктора 👑</h2>
+        <p>Марина, поздравляю с твоим днем! Мы девятнадцать лет связаны нитью, и я хочу пройти свой путь только с тобой.<br><br>Ты моё богатство, с которым буду дальше идти. Я с неба звезды все достану, лишь бы ты сияла! С днем рождения, любимая! 🥂</p>
+        <label for="res" class="close-btn">Закрыть ✨</label>
+    </div>
+
+    <div class="modal" id="box4">
+        <img src="https://unlimbot.hb.ru-msk.vkcloud-storage.ru/uploads/f6f4fe6e7f5c4977a845633243cc9e744c5940655fc5ec51.jpg">
+        <h2>Яркие виды 🏔️</h2>
+        <p>Пусть впереди будет ещё больше таких красивых путешествий и захватывающих моментов!</p>
+        <label for="res" class="close-btn">Закрыть ✨</label>
+    </div>
+
+    <div class="modal" id="box5">
+        <img src="https://unlimbot.hb.ru-msk.vkcloud-storage.ru/uploads/85d814f7dc864590b08f22d1ed7861eb2120d92e311318da.jpg">
+        <h2>Твоя вера ❤️</h2>
+        <p>Спасибо за твою постоянную поддержку, веру в нас и домашнее тепло!</p>
+        <label for="res" class="close-btn">Закрыть ✨</label>
+    </div>
+
+    <div class="modal" id="box6">
+        <img src="https://unlimbot.hb.ru-msk.vkcloud-storage.ru/uploads/866dd520e26b454fa5f9d1cdedf4864f8195f335e201c608.jpg">
+        <h2>Самая красивая! 👑</h2>
+        <p>Ты у нас самая современная, стильная и потрясающая мама на свете!</p>
+        <label for="res" class="close-btn">Закрыть ✨</label>
+    </div>
+
+    <div class="modal" id="box7">
+        <img src="https://unlimbot.hb.ru-msk.vkcloud-storage.ru/uploads/66649ed3c6324d30b9e60bb3e21b35be7694e6363ad78b56.jpg">
+        <h2>Отдых и море 🌊</h2>
+        <p>Побольше солнечных дней, качественного отдыха и времени для себя!</p>
+        <label for="res" class="close-btn">Закрыть ✨</label>
+    </div>
+
+</body>
+</html>

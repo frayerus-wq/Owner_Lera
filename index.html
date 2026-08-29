@@ -149,8 +149,9 @@
 </head>
 <body>
 
-    <!-- ФОНОВАЯ МУЗЫКА (РАБОЧИЕ ССЫЛКИ С АВТОПОВТОРОМ И ПОДДЕРЖКОЙ ВСЕХ УСТРОЙСТВ) -->
+    <!-- ФОНОВАЯ МУЗЫКА (ВШИТЫ НАДЁЖНЫЕ ОНЛАЙН-ИСТОЧНИКИ — ТЕПЕРЬ ФАЙЛ MP3 НЕ НУЖНО ЗАГРУЖАТЬ!) -->
     <audio id="bgMusic" loop preload="auto">
+        <source src="music.mp3" type="audio/mpeg">
         <source src="https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3" type="audio/mpeg">
         <source src="https://upload.wikimedia.org/wikipedia/commons/transcoded/c/c8/Ludwig_van_Beethoven_-_Fur_Elise.ogg/Ludwig_van_Beethoven_-_Fur_Elise.ogg.mp3" type="audio/mpeg">
     </audio>
@@ -173,7 +174,7 @@
                 musicText.textContent = 'Играет';
                 isPlaying = true;
             }).catch(e => {
-                console.log("Audio play deferred or blocked:", e);
+                console.log("Audio deferred:", e);
             });
         }
 
@@ -188,7 +189,6 @@
             }
         }
 
-        // Автозапуск музыки при первом клике/касании в любом месте экрана (для обхода автоплей-защиты iOS/Android)
         ['click', 'touchstart', 'keydown'].forEach(evt => {
             document.addEventListener(evt, function initAudio() {
                 if (!isPlaying) {
